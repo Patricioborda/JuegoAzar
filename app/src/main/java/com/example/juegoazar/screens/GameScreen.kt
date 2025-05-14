@@ -81,6 +81,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
         if (gameOver) {
             Text(
                 "¡Juego terminado! Has fallado 5 veces.",
+                style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.error
             )
             Button(
