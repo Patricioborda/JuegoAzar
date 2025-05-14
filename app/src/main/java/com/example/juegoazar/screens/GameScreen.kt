@@ -6,15 +6,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.platform.LocalContext
 import com.example.juegoazar.ui.components.GuessInput
 import com.example.juegoazar.ui.components.ActionButton
 import com.example.juegoazar.ui.theme.bodyLarge
 import com.example.juegoazar.ui.theme.bodyMedium
-import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {
@@ -26,7 +27,19 @@ fun GameScreen(modifier: Modifier = Modifier) {
     var gameOver by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+    val dataStore = remember { com.example.juegoazar.data.DataStoreManager(context) }
+    val scope = rememberCoroutineScope()
 
+    // Leer mejor puntaje al iniciar
+    LaunchedEffect(Unit) {
+        scope.launch {
+            dataStore.maxScore.collectLatest { saved ->
+                bestScore = saved
+            }
+        }
+    }
+
+    // Mostrar toast en cada intento fallido
     LaunchedEffect(attempts) {
         if (attempts > 0) {
             showToast(context, "Intenta nuevamente. Intentos fallidos: $attempts")
@@ -60,6 +73,9 @@ fun GameScreen(modifier: Modifier = Modifier) {
                     score += 10
                     if (score > bestScore) {
                         bestScore = score
+                        scope.launch {
+                            dataStore.saveMaxScore(score)
+                        }
                     }
                     numberToGuess = (1..5).random()
                     attempts = 0

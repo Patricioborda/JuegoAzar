@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.juegoazar.screens.BestScoreScreen
 import com.example.juegoazar.screens.GameScreen
 import com.example.juegoazar.screens.StartScreen
 import com.example.juegoazar.screens.HowToPlayScreen
@@ -24,6 +25,9 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
         }
         composable("howToPlay") {
             HowToPlayScreen(navController)
+        }
+        composable("bestScore") {
+            BestScoreScreen(onBack = { navController.popBackStack() })
         }
     }
 }

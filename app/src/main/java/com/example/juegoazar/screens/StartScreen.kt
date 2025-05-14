@@ -31,7 +31,11 @@ fun StartScreen(navController: NavController) {
         ) {
             Text("Comenzar")
         }
-
+        Button(
+            onClick = { navController.navigate("bestScore") }
+        ) {
+            Text("🏅 Mejor Puntaje")
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
