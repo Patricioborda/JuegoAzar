@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.juegoazar.screens.GameScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.juegoazar.navigation.AppNavGraph
 import com.example.juegoazar.ui.theme.JuegoAzarTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,8 +19,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JuegoAzarTheme {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GameScreen(modifier = Modifier.padding(innerPadding))
+                    AppNavGraph(
+                        navController = navController,
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }

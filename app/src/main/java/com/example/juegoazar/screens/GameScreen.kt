@@ -12,6 +12,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.platform.LocalContext
 import com.example.juegoazar.ui.components.GuessInput
 import com.example.juegoazar.ui.components.ActionButton
+import com.example.juegoazar.ui.theme.bodyLarge
+import com.example.juegoazar.ui.theme.bodyMedium
 import androidx.compose.runtime.LaunchedEffect
 
 @Composable
@@ -32,14 +34,14 @@ fun GameScreen(modifier: Modifier = Modifier) {
     }
 
     Column(
-        modifier = modifier // <- corregido: se usa el modifier que viene como parámetro
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Puntaje: $score", style = MaterialTheme.typography.bodyLarge)
-        Text("Mejor Puntaje: $bestScore", style = MaterialTheme.typography.bodyMedium)
+        Text("Puntaje: $score", style = bodyLarge)
+        Text("Mejor Puntaje: $bestScore", style = bodyMedium)
 
         Spacer(modifier = Modifier.height(32.dp))
 
